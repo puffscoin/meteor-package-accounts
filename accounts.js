@@ -12,11 +12,11 @@ The accounts collection, with some ethereum additions.
 var collection = new Mongo.Collection("puffscoin_accounts", {
   connection: null
 });
-EthAccounts = _.clone(collection);
-EthAccounts._collection = collection;
+PuffsAccounts = _.clone(collection);
+PuffsAccounts._collection = collection;
 
 if (typeof PersistentMinimongo !== "undefined")
-  new PersistentMinimongo(EthAccounts._collection);
+  new PersistentMinimongo(PuffsAccounts._collection);
 
 /**
 Updates the accounts balances, by watching for new blocks and checking the balance.
