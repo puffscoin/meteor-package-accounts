@@ -10,7 +10,7 @@ If the Accounts should reapear in the node (e.g. the user importet those, or mis
 including all the extra properties you've set.
 
 **Note** don't use the `PuffsAccounts` collection to add your own custom accounts as a reload of your application,
-or any change in `web3.eth.accounts` would hide them.
+or any change in `web3.puffs.accounts` would hide them.
 
 ## Installation
 
