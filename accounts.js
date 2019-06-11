@@ -4,7 +4,7 @@
 */
 
 /**
-The accounts collection, with some ethereum additions.
+The accounts collection, with some puffscoin additions.
 
 @class PuffsAccounts
 @constructor
@@ -31,7 +31,7 @@ PuffsAccounts._watchBalance = function() {
   }
 
   // UPDATE SIMPLE ACCOUNTS balance on each new block
-  this.blockSubscription = web3.eth
+  this.blockSubscription = web3.puffs
     .subscribe("newBlockHeaders")
     .on("data", function() {
       _this._updateBalance();
@@ -47,7 +47,7 @@ PuffsAccounts._updateBalance = function() {
   var _this = this;
 
   _.each(PuffsAccounts.find({}).fetch(), function(account) {
-    web3.eth.getBalance(account.address, function(err, res) {
+    web3.puffs.getBalance(account.address, function(err, res) {
       if (!err) {
         if (res.toFixed) {
           res = res.toFixed();
@@ -73,7 +73,7 @@ PuffsAccounts._addAccounts = function() {
   var _this = this;
 
   // UPDATE normal accounts on start
-  web3.eth.getAccounts(function(e, accounts) {
+  web3.puffs.getAccounts(function(e, accounts) {
     if (!e) {
       var visibleAccounts = _.pluck(PuffsAccounts.find().fetch(), "address");
 
@@ -112,13 +112,13 @@ PuffsAccounts._addAccounts = function() {
       // ADD missing accounts
       var accountsCount = visibleAccounts.length + 1;
       _.each(accounts, function(address) {
-        web3.eth.getBalance(address, function(e, balance) {
+        web3.puffs.getBalance(address, function(e, balance) {
           if (!e) {
             if (balance.toFixed) {
               balance = balance.toFixed();
             }
 
-            web3.eth.getCoinbase(function(error, coinbase) {
+            web3.puffs.getCoinbase(function(error, coinbase) {
               if (error) {
                 console.warn("getCoinbase error: ", error);
                 coinbase = null; // continue with null coinbase
